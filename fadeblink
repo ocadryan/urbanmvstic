@@ -5,6 +5,16 @@ This program creates two fading LEDs, one starting before the other,and the seco
 When both are at their luminescent peak, a third digital light is activated to beep 4 times.  
 Then the two other LEDs fade out in reverse order and the loop starts over.
 
+The circuit:
+- 3 LEDs attached from pins 13(digital), ~11(analog), and ~10(analog) to ground.
+
+Reference Code (Fading, Line 19-41) created 1 Nov 2008
+  by David A. Mellis
+  modified 30 Aug 2011
+  by Tom Igoe
+
+  http://www.arduino.cc/en/Tutorial/Fading
+
 
 */
 
