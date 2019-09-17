@@ -1,0 +1,72 @@
+/*
+  Blink Assignment by Ryan Boyd, student # 3180091
+
+This program creates two fading LEDs, one starting before the other,and the second fading in faster and brighter. 
+When both are at their luminescent peak, a third digital light is activated to beep 4 times.  
+Then the two other LEDs fade out in reverse order and the loop starts over.
+
+
+*/
+
+// Name the 2 PWM pins attached to the fading LEDs
+int ledPin = 10;    // LED connected to digital PWM pin 10
+int ledPin2 = 11;   // LED connected to digital PWM pin 11
+
+// Set the digital pin, 13, as an output
+void setup() {
+pinMode (13, OUTPUT);
+}
+
+void loop() {
+  // fade in the LED attached to pin 10 from min to max in increments of 5 points:
+  for (int fadeValue = 0 ; fadeValue <= 255; fadeValue += 5) {
+    // sets the value (range from 0 to 255):
+    analogWrite(ledPin, fadeValue);
+    // wait for 25 milliseconds to see the dimming effect
+    delay(25);
+  }
+ // fade in the LED attached to pin 11 from min to max in increments of 7 points:
+    for (int fadeValue = 0 ; fadeValue <= 259; fadeValue += 7) {
+    // sets the value (range from 0 to 259):
+    analogWrite(ledPin2, fadeValue);
+    // wait for 25 milliseconds to see the dimming effect
+    delay(25);
+    //sets the LED attached to pin 11 to high
+    digitalWrite(ledPin2, HIGH);
+  }
+  
+// flicker the LED attached to pin 13, 4 times  
+    digitalWrite(13, HIGH);
+    delay(50);
+    digitalWrite(13, LOW);
+    delay(50);
+    digitalWrite(13, HIGH);
+    delay(50);
+    digitalWrite(13, LOW);
+    delay(50);
+    digitalWrite(13, HIGH);
+    delay(50);
+    digitalWrite(13, LOW);
+    delay(50);
+    digitalWrite(13, HIGH);
+    delay(50);
+    digitalWrite(13, LOW);
+
+  // fade out the LED attached to pin 11 from max to min in increments of 7 points:
+     
+      for (int fadeValue = 259 ; fadeValue >= 0; fadeValue -= 7) {
+    // sets the value (range from 0 to 259):
+    analogWrite(ledPin2, fadeValue);
+    // wait for 25 milliseconds to see the dimming effect
+    delay(25);
+  }
+    // fade out the LED attached to pin 10 from max to min in increments of 5 points:
+  for (int fadeValue = 255 ; fadeValue >= 0; fadeValue -= 5) {
+    // sets the value (range from 0 to 255):
+    analogWrite(ledPin, fadeValue);
+    // wait for 25 milliseconds to see the dimming effect
+    delay(25);
+  }
+
+
+}
