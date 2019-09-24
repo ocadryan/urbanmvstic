@@ -1,0 +1,59 @@
+//Light Sensing Assignment by Ryan Boyd, student # 3180091
+
+//This program modulates 3 LEDs by first making them cycle through each of the three colours(red, blue, and green), until a button is pressed and held down.
+//Once the button is held down, the 3 LEDs become reactive to 3 different intensities of light due to the photocell attached to the breadboard.  
+//When a light is waved over them, the three LEDs light up and turn off in succession based on the 3 intensities of light.
+
+//The circuit:
+//
+//3 LEDs attached from pins 13, 12, and 11 to ground.  
+//A photocell and a button from pin A5 and 8 respectively are run through 2 10k resistors to ground.
+
+ //First, set the digital pins 13, 12 and 11 as outputs, and set digital pin 8 as an input.  Then initiate the Serial monitor.
+void setup() {
+  pinMode(13, OUTPUT);
+  pinMode(12, OUTPUT);
+  pinMode(11, OUTPUT);
+  pinMode(8, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  //log the status of the analog pin's feedback from the photocell, producing a light intensity value
+  Serial.println(analogRead(5));
+  //If the button is pushed, turn the 3 LEDs on, Red at the intensity of 550, Blue at 700 and Green at 900.
+  if(digitalRead(8) == HIGH){
+    
+    if(analogRead(5) > 550) {
+      digitalWrite(13, HIGH);
+      Serial.println("Red light is activated by the light!");
+      } else{
+        digitalWrite(13, LOW);
+        }
+      
+    if(analogRead(5) > 700) {
+      digitalWrite(12, HIGH);
+      Serial.println("Blue light is activated by light!");
+      } else{
+        digitalWrite(12, LOW);
+        }
+      
+    if(analogRead(5) > 900) {
+      digitalWrite(11, HIGH);
+      Serial.println("Green light is activated by the light!");
+      } else{
+        digitalWrite(11, LOW);
+        }
+ //Otherwise, turn on and off red, then blue, then green at intervals of 100 miliseconds.     
+  } else {
+    digitalWrite(13,HIGH);
+    delay(100);
+    digitalWrite(13,LOW);
+    digitalWrite(12,HIGH);
+    delay(100);
+    digitalWrite(12,LOW);
+    digitalWrite(11,HIGH);
+    delay(100);
+    digitalWrite(11,LOW);
+    }
+}
