@@ -1,0 +1,47 @@
+//Servo Assignment by Ryan Boyd, student #3180091
+//
+//This program causes a servo motor to rotate at specific degrees depending on the light intensity received by the photocell.
+//When the light intensity is between 350-525, the servo rotates to 45 degrees.
+//When the light intensity is between 525-700, the servo rotates to 90 degrees.
+//When the light intensity is above 700, the servo rotates to 180 degrees.
+//
+//The circuit: 
+//
+// 5v pin connected to the positive power rail on the breadboard
+// Ground pin connected the negative power rail on the breadboard
+// Photocell connected to the 5v power rail with a 10k resistor into analog pin 5.
+// Servo connected to pin 9, as well as the 5v and ground power rails.
+//
+//Reference Code by BARRAGAN <http://barraganstudio.com>
+// This example code is in the public domain.
+//
+// modified 8 Nov 2013
+// by Scott Fitzgerald
+// http://www.arduino.cc/en/Tutorial/Sweep
+
+#include <Servo.h> // Include library
+Servo myservo; // Make new servo object
+int pos = 0; // Store the position
+void setup() {
+ Serial.begin(9600); //begin the Serial monitor
+ myservo.attach(9); // attaches the servo on pin 9 to the servo object
+}
+void loop(){
+ Serial.println(analogRead(5)); // log the photocell reading from analog pin 5 in the serial monitor
+
+//When the light intensity is between 350-525, the servo rotates to 45 degrees.
+ if(analogRead(5) >= 350 && analogRead(5) <= 525) {
+ myservo.write(45); // tell servo to go to 45 degrees
+ }
+
+//When the light intensity is between 525-700, the servo rotates to 90 degrees.
+  if(analogRead(5) >= 525 && analogRead(5) <= 700) {
+ myservo.write(90); // tell servo to go to 90 degrees
+ }
+ 
+//When the light intensity is above 700, the servo rotates to 180 degrees.
+  if(analogRead(5) >= 700) {
+ myservo.write(180); // tell servo to go to 180 degrees
+ }
+
+ }
