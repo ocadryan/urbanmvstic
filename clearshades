@@ -1,0 +1,55 @@
+//Useless Machine Project by Ryan, Khrystyna, Matt & Giulia
+//
+//This program causes 2 servo motors to rotate at specific degrees depending on the light intensity received by the photocell.
+//When the light intensity is between 525-700, the servos rotate between 80-0 & 100-180 degrees respectively.
+//When the light intensity is above 700, the servos rotate to 90 degrees.
+//
+//The circuit: 
+//
+// 5v pin connected to the positive power rail on the breadboard
+// Ground pin connected the negative power rail on the breadboard
+// Photocell connected to the 5v power rail with a 10k resistor into analog pin 5.
+// Two Servos connected to pin 9 & pin 11, as well as the 5v and ground power rails.
+//
+//Reference Code by BARRAGAN <http://barraganstudio.com>
+// This example code is in the public domain.
+//
+// modified 8 Nov 2013
+// by Scott Fitzgerald
+// http://www.arduino.cc/en/Tutorial/Sweep
+
+#include <Servo.h> // Include library
+Servo myservo; // Make new servo object
+Servo myservo2;// Make a second servo object
+int pos = 0;   // Store the position
+void setup() {
+ Serial.begin(9600);  // begin the Serial monitor
+ myservo.attach(9);   // attaches the servo on pin 9 to the servo object
+ myservo2.attach(11); // attaches the servo on pin 11 to the second servo object
+}
+void loop(){
+ Serial.println(analogRead(5)); // log the photocell reading from analog pin 5 in the serial monitor
+
+
+// When the light intensity is between 525-700, the servos rotate between 80-0 & 100-180 degrees respectively.
+  if(analogRead(5) >= 525 && analogRead(5) <= 700) {
+ myservo.write(80);   // tell servo 1 to go to 80 degrees
+ myservo2.write(100); // tell servo 2 to go 100 degrees
+ delay(100);          // wait 100 miliseconds
+ myservo.write(0);    // tell servo 1 to go to 0 degrees
+ myservo2.write(180); // tell servo 2 to go 180 degrees
+ delay(100);          // wait 100 miliseconds
+ myservo.write(80);   // repeat
+ myservo2.write(100);
+ delay(100);
+ myservo.write(0);
+ myservo2.write(180);
+ }
+ 
+//When the light intensity is above 700, the servos rotate to 90 degrees.
+  if(analogRead(5) >= 700) {
+ myservo.write(90);
+  myservo2.write(90);// tell both servos to go to 90 degrees
+ }
+
+ }
