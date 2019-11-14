@@ -1,0 +1,73 @@
+// NeoPixel In Class Assignment by Ryan Boyd 3180091
+// This program initiates a sequence of rainbow colours on a NeoPixel LED strip when a button is pressed.
+// The circuit:
+
+// 5v pin connected to the positive power rail on the breadboard
+// Ground pin connected the negative power rail on the breadboard
+// Button connected to the 5v power rail with a 10k resistor into digital pin 13.
+// NeoPixel Stick connected to pin 6, the positive power rail and into Ground.
+
+// Code reference: Adafruit NeoPixel Examples
+
+
+
+
+
+// Refer to the NeoPixel Library
+#include <Adafruit_NeoPixel.h>
+#ifdef __AVR__ //
+ #include <avr/power.h> // Required for 16 MHz Adafruit Trinket
+#endif
+
+// Define which pin on the Arduino is connected to the NeoPixels
+
+#define LED_PIN    6  
+
+// How many NeoPixels are attached to the Arduino?
+#define LED_COUNT 60
+
+// Declare NeoPixel strip object:
+Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
+// Argument 1 = Number of pixels in NeoPixel strip
+// Argument 2 = Arduino pin number
+// Argument 3 = Pixel type flags, add together as needed:
+//   NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
+//   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
+
+
+void setup() {
+
+  strip.begin();           // INITIALIZE NeoPixel strip object
+  strip.show();            // Turn OFF all pixels ASAP
+  strip.setBrightness(50); // Set BRIGHTNESS to about 1/5 (max = 255)
+  pinMode(13, INPUT);  // set pin 13 as an input to receive button input
+}
+
+
+void loop() {
+
+
+// If button is pressed
+if(digitalRead(13) == HIGH){
+  //Turn all LEDs on, one for each colour of the rainbow
+
+  strip.setPixelColor(0, strip.Color(255, 0, 0)); // Red
+  strip.setPixelColor(1, strip.Color(255, 50, 0));  // Orange
+  strip.setPixelColor(2, strip.Color(255, 255, 0)); // Yellow
+  strip.setPixelColor(3, strip.Color(0, 255, 0));  // Green
+  strip.setPixelColor(4, strip.Color(0, 0, 255));  // Blue
+  strip.setPixelColor(5, strip.Color(255, 0, 255));  // Purple
+  strip.setPixelColor(6, strip.Color(255, 0, 50));  // Magenta
+   strip.show(); // show it on the neopixel strip
+  } else {
+    //Turn all LEDs off
+  strip.setPixelColor(0, strip.Color(0, 0, 0));
+  strip.setPixelColor(1, strip.Color(0, 0, 0));
+  strip.setPixelColor(2, strip.Color(0, 0, 0));
+  strip.setPixelColor(3, strip.Color(0, 0, 0));
+  strip.setPixelColor(4, strip.Color(0, 0, 0));
+  strip.setPixelColor(5, strip.Color(0, 0, 0));
+  strip.setPixelColor(6, strip.Color(0, 0, 0));
+  strip.show();
+}
+}
